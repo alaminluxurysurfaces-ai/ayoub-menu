@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>منيو المطعم</title>
+<title>أيوب شاورما وحلو | المنيو</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rakkas&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -89,29 +89,6 @@
   .nav-links a:hover::after{width:100%;}
 
   .nav-actions{display:flex; align-items:center; gap:10px;}
-  .icon-btn{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:40px; height:40px; border-radius:50%;
-    background:var(--teal);
-    color:var(--cream);
-    text-decoration:none;
-    position:relative;
-    flex-shrink:0;
-    transition:transform .25s, background .25s, box-shadow .25s;
-    box-shadow:0 8px 20px rgba(14,107,96,.35);
-  }
-  .icon-btn svg{width:18px; height:18px;}
-  .icon-btn:hover{transform:translateY(-2px) scale(1.05); background:var(--teal-light);}
-  .icon-btn.pulse::before{
-    content:'';
-    position:absolute; inset:0; border-radius:50%;
-    border:2px solid var(--teal-light);
-    animation:pulseRing 2.2s ease-out infinite;
-  }
-  @keyframes pulseRing{
-    0%{transform:scale(1); opacity:.7;}
-    100%{transform:scale(1.9); opacity:0;}
-  }
   .call-label{display:none;}
   @media (min-width:641px){
     .call-btn-wide{
@@ -227,8 +204,9 @@
   /* ---------- sticky utility bar (search + categories) ---------- */
   .sticky-bar{
     position:sticky; top:var(--nav-h); z-index:40;
-    background:rgba(253,251,246,0.9);
-    backdrop-filter:blur(10px);
+    background:rgba(253,251,246,0.68);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
     border-bottom:1px solid rgba(33,26,22,0.08);
     padding:16px 6vw;
   }
@@ -256,9 +234,37 @@
   .search-input:focus{border-color:var(--teal); box-shadow:0 0 0 4px rgba(14,107,96,.12);}
   .search-input::placeholder{color:rgba(33,26,22,0.4);}
 
+  .cat-strip-shell{position:relative;}
+  .cat-strip-shell::before,
+  .cat-strip-shell::after{
+    content:'';
+    position:absolute; top:0; bottom:8px; width:34px;
+    pointer-events:none; z-index:2;
+  }
+  .cat-strip-shell::before{
+    right:0;
+    background:linear-gradient(to left, rgba(253,251,246,0.85), transparent);
+  }
+  .cat-strip-shell::after{
+    left:0;
+    background:linear-gradient(to right, rgba(253,251,246,0.85), transparent);
+  }
+  .scroll-hint{
+    position:absolute; left:2px; top:50%; z-index:3; pointer-events:none;
+    transform:translateY(-50%);
+    color:var(--teal); font-size:1.4rem; font-weight:800; line-height:1;
+    animation:scrollHintNudge 1.6s ease-in-out infinite;
+    transition:opacity .3s;
+  }
+  .cat-strip-shell.scrolled .scroll-hint{opacity:0;}
+  @keyframes scrollHintNudge{
+    0%,100%{transform:translateY(-50%) translateX(0); opacity:.4;}
+    50%{transform:translateY(-50%) translateX(-6px); opacity:.95;}
+  }
   .cat-strip{
     display:flex; gap:10px; flex-wrap:nowrap; overflow-x:auto;
-    padding:2px 2px 6px;
+    padding:6px 8px 10px;
+    scroll-padding-inline:8px;
     scrollbar-width:none;
     justify-content:flex-start;
   }
@@ -285,7 +291,10 @@
     border-color:var(--teal);
     box-shadow:0 8px 18px rgba(14,107,96,.3);
   }
-  @media (min-width:641px){ .cat-strip{justify-content:center; flex-wrap:wrap;} }
+  @media (min-width:641px){
+    .cat-strip{justify-content:center; flex-wrap:wrap;}
+    .cat-strip-shell::before, .cat-strip-shell::after, .scroll-hint{display:none;}
+  }
 
   /* ---------- sections ---------- */
   main{padding:44px 6vw 20px;}
@@ -488,9 +497,6 @@
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1.01l-2.2 2.21z"/></svg>
       اتصل الآن
     </a>
-    <a class="icon-btn pulse" id="nav-call-icon" href="tel:6162" aria-label="اتصال">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.57 3.57 1 1 0 01-.25 1.01l-2.2 2.21z"/></svg>
-    </a>
   </div>
 </nav>
 
@@ -498,7 +504,7 @@
   <div class="hero-orb o1"></div>
   <div class="hero-orb o2"></div>
   <span class="hero-eyebrow">قائمة الطعام</span>
-  <h1 class="hero-title" id="hero-title">نكهة أصيلة <span class="accent">من فرن أيوب</span></h1>
+  <h1 class="hero-title" id="hero-title">نكهة أصيلة <span class="accent">من أيوب شاورما وحلو</span></h1>
   <p class="hero-desc" id="hero-desc">أشهى الأطباق بأجود المكونات</p>
   <div class="hero-cta">
     <a href="#menu-start" class="btn btn-solid">
@@ -517,7 +523,10 @@
     <input type="text" class="search-input" id="search-input" placeholder="ابحث عن صنف... (مثال: شاورما، فطيرة)" />
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
   </div>
-  <div class="cat-strip" id="cat-strip"></div>
+  <div class="cat-strip-shell">
+    <span class="scroll-hint" id="scroll-hint" aria-hidden="true">‹</span>
+    <div class="cat-strip" id="cat-strip"></div>
+  </div>
 </div>
 
 <main id="menu-start">
@@ -558,7 +567,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span id="footer-copy">© 2026 فرن المعلم أيوب. جميع الحقوق محفوظة.</span>
+      <span id="footer-copy">© 2026 أيوب شاورما وحلو. جميع الحقوق محفوظة.</span>
       <span>صُنع بشغف لعشّاق النكهة الأصيلة</span>
     </div>
   </div>
@@ -593,6 +602,13 @@ function iconFor(cat) {
   }
   return '🍽️';
 }
+
+(function initScrollHint(){
+  const strip = document.getElementById('cat-strip');
+  const shell = strip ? strip.closest('.cat-strip-shell') : null;
+  if (!strip || !shell) return;
+  strip.addEventListener('scroll', () => shell.classList.add('scrolled'), { once:true, passive:true });
+})();
 
 async function loadMenu() {
   try {
